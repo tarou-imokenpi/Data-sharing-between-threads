@@ -4,7 +4,7 @@ from time import sleep
 
 
 # インスタンスの参照で変数にアクセスするためのクラス
-class GlobalVariable(BaseModel):
+class GlobalMemory(BaseModel):
     count: int = 0
 
     # 再代入時にも型検証を実施
@@ -12,21 +12,21 @@ class GlobalVariable(BaseModel):
         validate_assignment = True
 
 
-def func_1(global_memory: GlobalVariable):
+def func_1(global_memory: GlobalMemory):
     for _ in range(100):
         global_memory.count += 1
         print(global_memory.count)
         sleep(0.1)
 
 
-def func_2(global_memory: GlobalVariable):
+def func_2(global_memory: GlobalMemory):
     for _ in range(100):
         global_memory.count -= 1
         sleep(0.1)
 
 
 # インスタンス化
-global_memory = GlobalVariable()
+global_memory = GlobalMemory()
 
 # インスタンスの参照をargsに与える
 thread1 = Thread(target=func_1, args=[global_memory])
